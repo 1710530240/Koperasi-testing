@@ -1,0 +1,2 @@
+# Koperasi-testing
+laptop kentang
