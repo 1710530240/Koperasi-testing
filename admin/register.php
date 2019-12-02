@@ -1,6 +1,8 @@
 <?php
 require "function.php";
 if (isset($_POST["save"])) {
+    // var_dump($_POST);
+    // die;
     if (user($_POST) > 0) {
         echo " 
         <script>
@@ -31,11 +33,9 @@ if (isset($_POST["save"])) {
 
     <title>Register</title>
 
-    <!-- Custom fonts for this template-->
+
     <link href="../asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link href="../asset/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -55,15 +55,18 @@ if (isset($_POST["save"])) {
                             </div>
                             <form class="user" method="POST" action="">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
-                                    </div>
-                                    <!-- <div class="col-sm-6">
+                                    <!-- <div class="col-sm-6 mb-3 mb-sm-0"> -->
+                                    <input name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
+                                </div>
+                                <!-- <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
                                     </div> -->
-                                </div>
+                                <!-- </div> -->
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <input name="foto" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="gambar">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">

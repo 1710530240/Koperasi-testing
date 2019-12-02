@@ -1,25 +1,46 @@
 <?php
+// require "function.php";
+// $conn = mysqli_connect("localhost", "root", "", "koprasi-testing");
+// if (isset($_POST["save"])) {
+
+//     $id = uniqid();
+//     $username = $_POST["username"];
+//     $email = $_POST["email"];
+//     $passwaord = $_POST["password"];
+//     $passwaord2 = $_POST["password2"];
+//     $photoPropil = 'default.jpg';
+
+//     if ($passwaord != $passwaord2) {
+
+//         header('Location : register.php');
+//     }
+//     $passwaord = password_hash($passwaord, PASSWORD_DEFAULT);
+//     $query = "INSERT INTO user VALUES ('$id','$username','$email','$passwaord','$photoPropil')";
+//     if (mysqli_query($conn, $query)) {
+//         echo ("data berhasil ditambahkan");
+//     } else {
+//         echo "gagal menambahkan data :", mysqli_error($conn);
+//     }
+// }
+?>
+<?php
 require "function.php";
-$conn = mysqli_connect("localhost", "root", "", "koprasi-testing");
-if (isset($_POST["save"])) {
+if (isset($_POST["submit"])) {
 
-    $id = uniqid();
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $passwaord = $_POST["password"];
-    $passwaord2 = $_POST["password2"];
-    $photoPropil = 'default.jpg';
-
-    if ($passwaord != $passwaord2) {
-
-        header('Location : register.php');
-    }
-    $passwaord = password_hash($passwaord, PASSWORD_DEFAULT);
-    $query = "INSERT INTO user VALUES ('$id','$username','$email','$passwaord','$photoPropil')";
-    if (mysqli_query($conn, $query)) {
-        echo ("data berhasil ditambahkan");
+    if (user($_POST) > 0) {
+        echo "
+                <script>
+                    alert('data berhasil ditambahkan');
+                    document.location.href = 'index.php';
+                </script>
+                ";
     } else {
-        echo "gagal menambahkan data :", mysqli_error($conn);
+        echo "
+                <script>
+                    alert('data gagal ditambahkan');
+                    document.location.href = 'index.php';
+                </script>
+                ";
     }
 }
 ?>
@@ -80,7 +101,7 @@ if (isset($_POST["save"])) {
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Anggota</h6>
-                        <a class="collapse-item" href="member.html">Daftar Anggota</a>
+                        <a class="collapse-item" href="member.php">Daftar Anggota</a>
                     </div>
                 </div>
             </li>
@@ -101,8 +122,8 @@ if (isset($_POST["save"])) {
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Anggota:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Create Account</a>
+                        <a class="collapse-item" href="login.php">Login</a>
+                        <a class="collapse-item" href="register.php">Create Account</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -177,7 +198,7 @@ if (isset($_POST["save"])) {
                 </nav>
                 <div class="container">
                     <h4 class="text-center pt-2">DAFTAR MEMBER KOPRASI KESAYANGAN ANDA</h4>
-                    <a href="register.html" class="text.right">
+                    <a href="register.php" class="text.right">
                     </a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-address-card mb-2"></i>
@@ -242,9 +263,9 @@ if (isset($_POST["save"])) {
                         </div>
                     </div>
                 </div>
+
                 <table class="table table-bordered table-striped table-hover btn-success  ">
                     <thead>
-                        <th>id</th>
                         <th>Nama Lengkap</th>
                         <th>Email</th>
                         <th>photo Propil</th>
@@ -269,7 +290,7 @@ if (isset($_POST["save"])) {
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-primary" href="login.html">Logout</a>
+                                <a class="btn btn-primary" href="login.php">Logout</a>
                             </div>
                         </div>
                     </div>

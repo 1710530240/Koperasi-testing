@@ -14,18 +14,27 @@ function query($query)
 }
 function user($data)
 {
+    // var_dump($_POST);
+    // die;
     global $conn;
     $id = uniqid();
     $username = $data["username"];
     $email = $data["email"];
+    $gambar = $data["foto"];
     $passwaord = $data["password"];
     $passwaord2 = $data["password2"];
-    $photoPropil = 'default.jpg';
+    $photoPropil = 'foto';
+
+    if ($passwaord != $passwaord2) {
+
+        header('Location : register.php');
+    }
+    $passwaord = password_hash($passwaord, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO user VALUES 
-    ('$id','$username','$email','$passwaord','$photoPropil')";
+    ('$id','$username','$email','$gambar','$passwaord','$photoPropil')";
 
     mysqli_query($conn, $query);
 
-    return mysqli_affected_rows($query);
+    return mysqli_affected_rows($conn);
 }
