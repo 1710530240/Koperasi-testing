@@ -4,7 +4,6 @@ $conn = mysqli_connect("localhost", "root", "", "koprasi-testing");
 function query($query)
 {
     global $conn;
-
     $result = mysqli_query($conn, $query);
     $rows = [];
     while ($row = mysqli_fetch_assoc($result)) {
@@ -20,11 +19,8 @@ function user($data)
     $id = uniqid();
     $username = $data["username"];
     $email = $data["email"];
-    $gambar = $data["foto"];
     $passwaord = $data["password"];
     $passwaord2 = $data["password2"];
-    $photoPropil = 'foto';
-
     if ($passwaord != $passwaord2) {
 
         header('Location : register.php');
@@ -32,7 +28,7 @@ function user($data)
     $passwaord = password_hash($passwaord, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO user VALUES 
-    ('$id','$username','$email','$gambar','$passwaord','$photoPropil')";
+    ('$id','$username','$email','$passwaord')";
 
     mysqli_query($conn, $query);
 

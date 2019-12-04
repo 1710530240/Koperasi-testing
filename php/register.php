@@ -1,5 +1,6 @@
 <?php
 require "function.php";
+$mem = query("SELECT * FROM koprasi-testing");
 if (isset($_POST["save"])) {
     // var_dump($_POST);
     // die;
@@ -65,9 +66,6 @@ if (isset($_POST["save"])) {
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
                                 </div>
-                                <div class="form-group">
-                                    <input name="foto" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="gambar">
-                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
@@ -79,6 +77,7 @@ if (isset($_POST["save"])) {
                                 <button type="submit" name="save"> <a class="btn btn-primary btn-user btn-block">
                                         Register Account
                                     </a></button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -1,30 +1,6 @@
 <?php
-// require "function.php";
-// $conn = mysqli_connect("localhost", "root", "", "koprasi-testing");
-// if (isset($_POST["save"])) {
-
-//     $id = uniqid();
-//     $username = $_POST["username"];
-//     $email = $_POST["email"];
-//     $passwaord = $_POST["password"];
-//     $passwaord2 = $_POST["password2"];
-//     $photoPropil = 'default.jpg';
-
-//     if ($passwaord != $passwaord2) {
-
-//         header('Location : register.php');
-//     }
-//     $passwaord = password_hash($passwaord, PASSWORD_DEFAULT);
-//     $query = "INSERT INTO user VALUES ('$id','$username','$email','$passwaord','$photoPropil')";
-//     if (mysqli_query($conn, $query)) {
-//         echo ("data berhasil ditambahkan");
-//     } else {
-//         echo "gagal menambahkan data :", mysqli_error($conn);
-//     }
-// }
-?>
-<?php
 require "function.php";
+$mem = query('SELECT * FROM koprasi-testing');
 if (isset($_POST["submit"])) {
 
     if (user($_POST) > 0) {
@@ -43,6 +19,7 @@ if (isset($_POST["submit"])) {
                 ";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +148,7 @@ if (isset($_POST["submit"])) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Rino Pebriantara</span>
-                                <img class="img-profile rounded-circle" src="../new.jpg">
+                                <img class="img-profile rounded-circle" src="gambar/new.jpg">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -196,6 +173,7 @@ if (isset($_POST["submit"])) {
                     </ul>
 
                 </nav>
+
                 <div class="container">
                     <h4 class="text-center pt-2">DAFTAR MEMBER KOPRASI KESAYANGAN ANDA</h4>
                     <a href="register.php" class="text.right">
@@ -265,11 +243,18 @@ if (isset($_POST["submit"])) {
                 </div>
 
                 <table class="table table-bordered table-striped table-hover btn-success  ">
-                    <thead>
+
+                    <tr>
                         <th>Nama Lengkap</th>
                         <th>Email</th>
-                        <th>photo Propil</th>
-                    </thead>
+                    </tr>
+                    <?php foreach ($mem as $row) : ?>
+                        <tr>
+                            <td><?php echo $row["username"]; ?></td>
+                            <td><?php echo $row["email"]; ?></td>
+                            <td><?php echo $row["password"]; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
 
                 <a class="scroll-to-top rounded" href="#page-top">
