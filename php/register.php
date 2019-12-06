@@ -1,6 +1,6 @@
 <?php
 require "function.php";
-$mem = query("SELECT * FROM koprasi-testing");
+$mem = query("SELECT * FROM user");
 if (isset($_POST["save"])) {
     // var_dump($_POST);
     // die;

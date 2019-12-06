@@ -1,6 +1,6 @@
 <?php
 require "function.php";
-$mem = query('SELECT * FROM koprasi-testing');
+$mem = query('SELECT * FROM user');
 if (isset($_POST["submit"])) {
 
     if (user($_POST) > 0) {
@@ -247,12 +247,17 @@ if (isset($_POST["submit"])) {
                     <tr>
                         <th>Nama Lengkap</th>
                         <th>Email</th>
+                        <th>proses</th>
                     </tr>
                     <?php foreach ($mem as $row) : ?>
                         <tr>
                             <td><?php echo $row["username"]; ?></td>
                             <td><?php echo $row["email"]; ?></td>
-                            <td><?php echo $row["password"]; ?></td>
+                            <td>
+                                <a href="ubah.php" class="btn btn-rimary">Update</a>
+                                <a href="delet.php?" class="btn btn-rimary">Delete</a>
+
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

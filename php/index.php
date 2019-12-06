@@ -1,6 +1,6 @@
 <?php
 require "function.php";
-$mem = query("SELECT * FROM koprasi-testing");
+$mem = query("SELECT * FROM user");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -182,7 +182,6 @@ $mem = query("SELECT * FROM koprasi-testing");
                             <tr>
                                 <td><?php echo $row["username"]; ?></td>
                                 <td><?php echo $row["email"]; ?></td>
-                                <td><?php echo $row["password"]; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
