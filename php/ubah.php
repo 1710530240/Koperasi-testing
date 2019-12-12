@@ -1,25 +1,26 @@
 <?php
 require "function.php";
-$mem = query("SELECT * FROM user");
+$id = $_GET["id"];
+$kop = query("SELECT * FROM user WHERE id ='$id'")[0];
 if (isset($_POST["save"])) {
-    // var_dump($_POST);
-    // die;
-    if (user($_POST) > 0) {
+    $data = $_POST;
+    $data['id'] =  $_GET['id'];
+    if (ubah($data) == true) {
         echo " 
         <script>
-            alert('data berhasil ditambahkan');
+            alert('data berhasil diubah');
             document.location.href='member.php';
        </script>
        ";
     } else {
         echo " 
         <script>
-            alert('data gagal ditambahkan');
+            alert('data gagal diubah');
             document.location.href='member.php';
-       </script>";
+       </script>
+       ";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,26 +53,26 @@ if (isset($_POST["save"])) {
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Update an Account!</h1>
                             </div>
                             <form class="user" method="POST" action="">
                                 <div class="form-group row">
                                     <!-- <div class="col-sm-6 mb-3 mb-sm-0"> -->
-                                    <input required name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
+                                    <input required name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username" value="<?= $kop['username']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input required name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                    <input required name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" value="<?= $kop['email']; ?>">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                        <input required name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" value="<?= $kop['password']; ?>">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input required name="password2" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input required name="password2" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" value="<?= $kop['password']; ?>">
                                     </div>
                                 </div>
                                 <a> <button type="submit" name="save" class="btn btn-primary btn-user btn-block">
-                                        Register Account
+                                        Update Account
                                     </button></a>
                             </form>
                         </div>

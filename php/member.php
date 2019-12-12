@@ -1,7 +1,7 @@
 <?php
 require "function.php";
 $mem = query('SELECT * FROM user');
-if (isset($_POST["submit"])) {
+if (isset($_POST["save"])) {
 
     if (user($_POST) > 0) {
         echo "
@@ -41,10 +41,10 @@ if (isset($_POST["submit"])) {
     <div id="wrapper">
 
 
-        <ul class="navbar-nav btn-success sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav btn-success sidebar sidebar-dark accordion btn-success" id="accordionSidebar">
 
 
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -56,7 +56,7 @@ if (isset($_POST["submit"])) {
 
 
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Home</span></a>
             </li>
@@ -114,17 +114,17 @@ if (isset($_POST["submit"])) {
             </div>
 
         </ul>
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column ">
 
             <div id="content">
 
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow ">
 
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto ">
 
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,12 +143,12 @@ if (isset($_POST["submit"])) {
                                 </form>
                             </div>
                         </li>
-                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <div class="topbar-divider d-none d-sm-block "></div>
 
-                        <li class="nav-item dropdown no-arrow">
+                        <li class="nav-item dropdown no-arrow ">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Rino Pebriantara</span>
-                                <img class="img-profile rounded-circle" src="gambar/new.jpg">
+                                <img class="img-profile rounded-circle" src="/Koperasi-testing/img/new.jpg">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -205,7 +205,7 @@ if (isset($_POST["submit"])) {
                                                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!
                                                                 </h1>
                                                             </div>
-                                                            <form class="user" method="POST" action="">
+                                                            <form class="user " method="POST" action="">
                                                                 <div class="form-group row">
                                                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                                                         <input name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
@@ -242,26 +242,28 @@ if (isset($_POST["submit"])) {
                     </div>
                 </div>
 
-                <table class="table table-bordered table-striped table-hover btn-success  ">
-
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <th>Email</th>
-                        <th>proses</th>
-                    </tr>
-                    <?php foreach ($mem as $row) : ?>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="btn-primary">
                         <tr>
-                            <td><?php echo $row["username"]; ?></td>
-                            <td><?php echo $row["email"]; ?></td>
-                            <td>
-                                <a href="ubah.php" class="btn btn-rimary">Update</a>
-                                <a href="delet.php?" class="btn btn-rimary">Delete</a>
-
-                            </td>
+                            <th>Nama Lengkap</th>
+                            <th>Email</th>
+                            <th>proses</th>
                         </tr>
-                    <?php endforeach; ?>
-                </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($mem as $row) : ?>
+                            <tr>
+                                <td><?php echo $row["username"]; ?></td>
+                                <td><?php echo $row["email"]; ?></td>
+                                <td>
+                                    <a href="ubah.php?id=<?= $row["id"]; ?> " class="btn btn-warning">Update</a>
+                                    <a href=" hapus.php?id=<?= $row["id"]; ?> " onclick=" return confirm('yakin mau dihapus?'); " class="btn btn-danger">Delete</a>
 
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fas fa-angle-up"></i>
                 </a>
