@@ -1,10 +1,9 @@
 <?php
 require "function.php";
-$mem = query("SELECT * FROM user");
+
 if (isset($_POST["save"])) {
-    // var_dump($_POST);
-    // die;
-    if (user($_POST) > 0) {
+
+    if (register($_POST) == true) {
         echo " 
         <script>
             alert('data berhasil ditambahkan');
@@ -12,14 +11,9 @@ if (isset($_POST["save"])) {
        </script>
        ";
     } else {
-        echo " 
-        <script>
-            alert('data gagal ditambahkan');
-            document.location.href='member.php';
-       </script>";
+        echo mysqli_error($conn);
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

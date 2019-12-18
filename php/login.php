@@ -1,3 +1,24 @@
+<?php
+require "function.php";
+
+if (isset($_POST["save"])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE username ='$$username'");
+
+    if (mysqli_num_rows($result) == true) {
+
+        $simpan = mysqli_fetch_assoc($result);
+
+        if (password_verify($password, $simpan["password"])) {
+            header("locatin: index.php");
+            exit;
+        }
+    }
+    $error = true;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +60,18 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome My Koprasi</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="username">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                         </div>
+                                        <?php
+                                        if (isset($error)) : ?>
+                                            <p style="color:red; font-style: italic;">username/password salah </p>
+
+                                        <?php endif; ?>
                                         <div class="form-group btn-primary btn-block btn-user">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
@@ -53,12 +79,13 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="dashboard.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <a> <button name="save" href="index.php" class="btn btn-primary btn-user btn-block">
+                                                Login
+                                        </a></button>
                                         <div class="text-center btn-google btn btn-google btn-block">
                                             <a class="small btn-google" href="register.php">Create an Account!</a>
                                         </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

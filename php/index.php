@@ -168,26 +168,6 @@ $mem = query("SELECT * FROM user");
                         <h1 class="h3 mb-0 text-gray-800">Home</h1>
                     </div>
                 </div>
-                <div class="container-fluid">
-
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    </div>
-                    <table class="table table-bordered table-striped table-hover btn-success  ">
-
-                        <tr>
-                            <th>Nama Lengkap</th>
-                            <th>Email</th>
-                        </tr>
-                        <?php foreach ($mem as $row) : ?>
-                            <tr>
-                                <td><?php echo $row["username"]; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-
-
-                </div>
             </div>
         </div>
         <a class="scroll-to-top rounded" href="#page-top">

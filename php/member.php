@@ -3,23 +3,17 @@ require "function.php";
 $mem = query('SELECT * FROM user');
 if (isset($_POST["save"])) {
 
-    if (user($_POST) > 0) {
-        echo "
-                <script>
-                    alert('data berhasil ditambahkan');
-                    document.location.href = 'index.php';
-                </script>
-                ";
+    if (register($_POST) == true) {
+        echo " 
+        <script>
+            alert('data berhasil ditambahkan');
+            document.location.href='member.php';
+       </script>
+       ";
     } else {
-        echo "
-                <script>
-                    alert('data gagal ditambahkan');
-                    document.location.href = 'index.php';
-                </script>
-                ";
+        echo mysqli_error($conn);
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -183,7 +177,9 @@ if (isset($_POST["save"])) {
                     </button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
                         <div class="modal-dialog" role="document">
+
                             <div class="modal-content">
+
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">TAMBAH MEMBER</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -205,15 +201,13 @@ if (isset($_POST["save"])) {
                                                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!
                                                                 </h1>
                                                             </div>
-                                                            <form class="user " method="POST" action="">
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                        <input name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
-                                                                    </div>
-                                                                    <!-- <div class="col-sm-6">
-                                                                        <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
-                                                                    </div> -->
+
+                                                            <form class="user " method="POST" action="member.php">
+
+                                                                <div class="form-group">
+                                                                    <input name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username">
                                                                 </div>
+
                                                                 <div class="form-group">
                                                                     <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
                                                                 </div>
@@ -225,12 +219,11 @@ if (isset($_POST["save"])) {
                                                                         <input name="password2" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                                                                     </div>
                                                                 </div>
-                                                                <button><a name="save" type="submit" class="btn btn-primary btn-user btn-block">
+                                                                <a> <button name="save" type="submit" class="btn btn-primary btn-user btn-block">
                                                                         Register Account
-                                                                    </a></button>
+                                                                    </button></a>
+                                                            </form>
                                                         </div>
-                                                        </form>
-
                                                     </div>
                                                 </div>
                                             </div>
