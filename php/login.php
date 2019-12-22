@@ -1,18 +1,43 @@
 <?php
+session_start();
 require "function.php";
+if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
+    $id = $_COOKIE["id"];
+    $key = $_COOKIE["key"];
+
+    $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
+
+    $simpan = mysqli_fetch_assoc($result);
+
+    if ($key === hash("sha256", $simpan["username"])) {
+        $_SESSION["login"] == true;
+    }
+}
+
+if (isset($_SESSION["login"])) {
+    header("location = index.php");
+    exit;
+}
 
 if (isset($_POST["save"])) {
-    $username = $_POST["username"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $result = mysqli_query($conn, "SELECT * FROM user WHERE username ='$$username'");
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE email ='$email'");
 
     if (mysqli_num_rows($result) == true) {
 
         $simpan = mysqli_fetch_assoc($result);
 
         if (password_verify($password, $simpan["password"])) {
-            header("locatin: index.php");
+
+            $_SESSION["login"] = true;
+
+            if (isset($_POST["remember"])) {
+                setcookie("id", $simpan["id"], time() + 360);
+                setcookie("key", hash("sha256", $simpan["username"]), time() + 360);
+            }
+            header("location: index.php");
             exit;
         }
     }
@@ -62,7 +87,7 @@ if (isset($_POST["save"])) {
                                     </div>
                                     <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="username">
+                                            <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address ">
                                         </div>
                                         <div class="form-group">
                                             <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
@@ -75,7 +100,7 @@ if (isset($_POST["save"])) {
                                         <div class="form-group btn-primary btn-block btn-user">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
+                                                <label name="remember" class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
                                         </div>

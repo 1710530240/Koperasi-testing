@@ -49,6 +49,7 @@ function ubah($data)
     $email = $data["email"];
     $password = $data["password"];
     $password2 = $data["password2"];
+
     if ($password == $password2) {
         $query = "UPDATE user SET
                 username ='$username',
@@ -63,6 +64,7 @@ function ubah($data)
 function register($data)
 {
     global $conn;
+    $id = uniqid();
     $username = strtolower(stripslashes($data["username"]));
     $email = $data["email"];
     $password = mysqli_real_escape_string($conn, $data["password"]);
@@ -75,20 +77,20 @@ function register($data)
         echo "<script>
                 alert('username sudah ada '); 
                 document.location.href='register.php';          
-         </script>";
+              </script>";
         return false;
     }
     if ($password !== $password2) {
         echo "<script>
                 alert('konfirmasi password tidak sesuai !');
                 document.location.href='register.php';      
-         </script>";
+             </script>";
 
         return false;
     }
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    mysqli_query($conn, "INSERT INTO user VALUES('','$username','$email','$password')");
+    mysqli_query($conn, "INSERT INTO user VALUES('$id','$username','$email','$password')");
 
     return mysqli_affected_rows($conn);
 }

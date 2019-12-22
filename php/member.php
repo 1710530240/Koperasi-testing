@@ -11,7 +11,12 @@ if (isset($_POST["save"])) {
        </script>
        ";
     } else {
-        echo mysqli_error($conn);
+        echo " 
+        <script>
+            alert('data gagal ditambahkan');
+            document.location.href='member.php';
+       </script>
+       ";
     }
 }
 ?>
@@ -193,7 +198,7 @@ if (isset($_POST["save"])) {
                                             <div class="card-body p-0">
 
                                                 <div class="row">
-                                                    <div class="col-lg-5 d-none d-lg-block bg-register"><img src="../testing.jpg" width="248%" height="100%" alt="">
+                                                    <div class="col-lg-5 d-none d-lg-block bg-register"><img src="/Koperasi-testing/img/testing.jpg" width="248%" height="100%" alt="">
                                                     </div>
                                                     <div class="col-lg-20">
                                                         <div class="p-5">

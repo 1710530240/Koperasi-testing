@@ -1,6 +1,10 @@
 <?php
+session_start();
+if (isset($_SESSION["login"])) {
+    header("location = login.php");
+}
 require "function.php";
-
+$mem = query('SELECT * FROM user');
 if (isset($_POST["save"])) {
 
     if (register($_POST) == true) {
@@ -11,7 +15,12 @@ if (isset($_POST["save"])) {
        </script>
        ";
     } else {
-        echo mysqli_error($conn);
+        echo " 
+        <script>
+            alert('data gagal ditambahkan');
+            document.location.href='member.php';
+       </script>
+       ";
     }
 }
 ?>
