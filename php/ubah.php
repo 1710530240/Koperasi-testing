@@ -1,11 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION["login"])) {
-    header("location = login.php");
+if (!isset($_SESSION["login"])) {
+    header("location: login.php");
+    exit;
 }
 require "function.php";
-$id = $_GET["id"];
-$kop = query("SELECT * FROM user WHERE id ='$id'")[0];
+$id = $_GET['id'];
+$query = mysqli_query($conn, "SELECT * FROM user WHERE id ='$id'");
+$user = mysqli_fetch_assoc($query);
 if (isset($_POST["save"])) {
     $data = $_POST;
     $data['id'] =  $_GET['id'];
@@ -37,7 +39,7 @@ if (isset($_POST["save"])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register</title>
+    <title>UPDATE DATA</title>
 
 
     <link href="../asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,19 +62,20 @@ if (isset($_POST["save"])) {
                                 <h1 class="h4 text-gray-900 mb-4">Update an Account!</h1>
                             </div>
                             <form class="user" method="POST" action="">
+                                <input type="hidden" name="passwordlama" value="<?= $user['password']; ?>">
                                 <div class="form-group row">
                                     <!-- <div class="col-sm-6 mb-3 mb-sm-0"> -->
-                                    <input required name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username" value="<?= $kop['username']; ?>">
+                                    <input required name="username" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="username" value="<?= $user['username']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input required name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" value="<?= $kop['email']; ?>">
+                                    <input required name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" value="<?= $user['email']; ?>">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" value="<?= $kop['password']; ?>">
+                                        <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input required name="password2" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" value="<?= $kop['password']; ?>">
+                                        <input name="password2" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
                                 <a> <button type="submit" name="save" class="btn btn-primary btn-user btn-block">

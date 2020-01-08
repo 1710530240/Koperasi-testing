@@ -1,8 +1,9 @@
 <?php
-session_start();
-if (isset($_SESSION["login"])) {
-    header("location = login.php");
-}
+// session_start();
+// if (!isset($_SESSION["login"])) {
+//     header("location: login.php");
+//     exit;
+// }
 require "function.php";
 $mem = query('SELECT * FROM user');
 if (isset($_POST["save"])) {

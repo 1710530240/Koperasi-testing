@@ -1,6 +1,17 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"])) {
+    header("location: login.php");
+    exit;
+}
 require "function.php";
-$mem = query('SELECT * FROM user');
+
+$halaman = 2;
+$jumlahdata = count(query("SELECT * FROM user"));
+$jumlahhalaman = ceil($jumlahdata / $halaman);
+$aktif = (isset($_GET["halaman"])) ? $_GET["halaman"] : 1;
+$dataawal = ($halaman * $aktif) - $halaman;
+$mem = query("SELECT * FROM user LIMIT $dataawal, $halaman");
 if (isset($_POST["save"])) {
 
     if (register($_POST) == true) {
@@ -251,7 +262,9 @@ if (isset($_POST["save"])) {
                     <tbody>
                         <?php foreach ($mem as $row) : ?>
                             <tr>
-                                <td><?php echo $row["username"]; ?></td>
+
+                                <td><a href="ubah.php?id=<?= $row["id"]; ?>"><?php echo $row["username"]; ?></a></td>
+
                                 <td><?php echo $row["email"]; ?></td>
                                 <td>
                                     <a href="ubah.php?id=<?= $row["id"]; ?> " class="btn btn-warning">Update</a>
@@ -262,42 +275,57 @@ if (isset($_POST["save"])) {
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a class="scroll-to-top rounded" href="#page-top">
-                    <i class="fas fa-angle-up"></i>
-                </a>
+                <?php if ($aktif > 1) : ?>
+                    <a href="?halaman=<?= $aktif - 1; ?>">&laquo;</a>
+                <?php endif; ?>
+                <?php for ($i = 1; $i <= $halaman; $i++) : ?>
+                    <?php if ($i === $aktif) : ?><?php for ($i = 1; $i <= $halaman; $i++) : ?>
+                    <a href=""><?= $i; ?></a>
+                <?php endfor; ?>
+                <a href="?halaman=<?= $i; ?>"><?= $i; ?></a>
+            <?php else : ?>
+                <a href="?halaman=<?= $i; ?>"> <?= $i; ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+        <?php if ($aktif < $jumlahhalaman) : ?>
+            <a href="?halaman=<?= $aktif + 1; ?>">&raquo;</a>
+        <?php endif; ?>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">Select "Logout" below if you are ready to end your current
-                                session.
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-primary" href="login.php">Logout</a>
-                            </div>
-                        </div>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current
+                        session.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.php">Logout</a>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
-                <script src="../asset/vendor/jquery/jquery.min.js"></script>
-                <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../asset/vendor/jquery/jquery.min.js"></script>
+        <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-                <script src="../asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../asset/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-                <script src="../asset/js/sb-admin-2.min.js"></script>
+        <script src="../asset/js/sb-admin-2.min.js"></script>
 
-                <script src="../asset/vendor/chart.js/Chart.min.js"></script>
+        <script src="../asset/vendor/chart.js/Chart.min.js"></script>
 
-                <script src="../asset/js/demo/chart-area-demo.js"></script>
-                <script src="../asset/js/demo/chart-pie-demo.js"></script>
+        <script src="../asset/js/demo/chart-area-demo.js"></script>
+        <script src="../asset/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

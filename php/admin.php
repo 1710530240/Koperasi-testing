@@ -1,10 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION["login"])) {
+// session_start();
+// if (!isset($_SESSION["login"])) {
 
-    header("location: login.php");
-    exit;
-}
+//     header("location: login.php");
+//     exit;
+// }
 require "function.php";
 $mem = query("SELECT * FROM user");
 ?>
@@ -68,12 +68,12 @@ $mem = query("SELECT * FROM user");
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-money-check-alt"></i>
-                    <span>MEMBER</span>
+                    <span>TRANSAKSI</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Anggota</h6>
-                        <a class="collapse-item" href="member.php">Daftar Anggota</a>
+                        <h6 class="collapse-header">taransaksi</h6>
+                        <a class="collapse-item" href="member.php">Teransaksi</a>
                     </div>
                 </div>
             </li>
@@ -89,13 +89,12 @@ $mem = query("SELECT * FROM user");
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-cash-register"></i>
-                    <span>Registrasi</span>
+                    <span>PEMINJAMAN</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Anggota:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="register.php">Create Account</a>
+                        <h6 class="collapse-header">Halaman Peminjaman :</h6>
+                        <a class="collapse-item" href="login.php">pinjaman</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>

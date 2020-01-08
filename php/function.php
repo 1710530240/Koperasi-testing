@@ -43,20 +43,23 @@ function hapus($id)
 }
 function ubah($data)
 {
+
     global $conn;
     $id = $data['id'];
+    if (empty($data["password"]) && empty($data["password2"])) {
+        $password = $data["passwordlama"];
+    } else if ($data["password"] != $data["password2"]) {
+        echo "<script>
+        alert ('password tidak sama ');
+        </script>";
+    }
+    // $id = uniqid();
     $username = $data["username"];
     $email = $data["email"];
-    $password = $data["password"];
-    $password2 = $data["password2"];
-
-    if ($password == $password2) {
-        $query = "UPDATE user SET
+    $query = "UPDATE user SET
                 username ='$username',
-                email = '$email',
-                password = '$password'
-                WHERE id = '$id'";
-    } else {
+                email = '$email'
+                WHERE id = '$id'"; {
         return false;
     }
     return mysqli_query($conn, $query);
@@ -93,4 +96,22 @@ function register($data)
     mysqli_query($conn, "INSERT INTO user VALUES('$id','$username','$email','$password')");
 
     return mysqli_affected_rows($conn);
+}
+function login($data)
+{
+    global $conn;
+    $user = ($_POST["username"]);
+    $pass = ($_POST["password"]);
+
+    $encrip = sha1($pass);
+
+    $query = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user' AND password='$encrip'");
+
+    $cek = mysqli_num_rows($query);
+
+    if ($cek > 0) {
+        $_SESSION["status"] = "login";
+        header("location: index.php");
+        exit;
+    }
 }

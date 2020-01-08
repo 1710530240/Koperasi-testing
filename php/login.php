@@ -1,31 +1,30 @@
 <?php
 session_start();
 require "function.php";
-if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
-    $id = $_COOKIE["id"];
-    $key = $_COOKIE["key"];
+// if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
+//     $id = $_COOKIE["id"];
+//     $key = $_COOKIE["key"];
 
-    $result = mysqli_query($conn, "SELECT username FROM user WHERE id = $id");
+//     $result = mysqli_query($conn, "SELECT * FROM user WHERE id = $id");
 
-    $simpan = mysqli_fetch_assoc($result);
+//     $simpan = mysqli_fetch_assoc($result);
 
-    if ($key === hash("sha256", $simpan["username"])) {
-        $_SESSION["login"] == true;
-    }
-}
-
+//     if ($key === hash("sha256", $simpan["username"])) {
+//         $_SESSION["login"] == true;
+//     }
+// }
 if (isset($_SESSION["login"])) {
     header("location = index.php");
     exit;
 }
-
 if (isset($_POST["save"])) {
-    $email = $_POST["email"];
+    $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $result = mysqli_query($conn, "SELECT * FROM user WHERE email ='$email'");
 
-    if (mysqli_num_rows($result) == true) {
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE username ='$username'");
+
+    if (mysqli_num_rows($result) === 1) {
 
         $simpan = mysqli_fetch_assoc($result);
 
@@ -34,8 +33,8 @@ if (isset($_POST["save"])) {
             $_SESSION["login"] = true;
 
             if (isset($_POST["remember"])) {
-                setcookie("id", $simpan["id"], time() + 360);
-                setcookie("key", hash("sha256", $simpan["username"]), time() + 360);
+                setcookie("id", $simpan["id"], time() + 3600);
+                setcookie("key", hash("sha256", $simpan["username"]), time() + 3600);
             }
             header("location: index.php");
             exit;
@@ -87,7 +86,7 @@ if (isset($_POST["save"])) {
                                     </div>
                                     <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address ">
+                                            <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username ">
                                         </div>
                                         <div class="form-group">
                                             <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
