@@ -46,22 +46,23 @@ function ubah($data)
 
     global $conn;
     $id = $data['id'];
-    if (empty($data["password"]) && empty($data["password2"])) {
+    if ($data["password"] == "" && $data["password2"] = "") {
         $password = $data["passwordlama"];
     } else if ($data["password"] != $data["password2"]) {
         echo "<script>
         alert ('password tidak sama ');
         </script>";
+    } else if ($data["password"] == $data["password2"]) {
+        $password = password_hash($data["password"], PASSWORD_DEFAULT);
     }
     // $id = uniqid();
     $username = $data["username"];
     $email = $data["email"];
     $query = "UPDATE user SET
                 username ='$username',
-                email = '$email'
-                WHERE id = '$id'"; {
-        return false;
-    }
+                email = '$email',
+                `password`='$password'
+                WHERE id = '$id'";
     return mysqli_query($conn, $query);
 }
 function register($data)
